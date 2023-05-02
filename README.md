@@ -7,3 +7,5 @@ My primary goal for this project is to create a user-friendly travel app that ma
 As I explore the possibilities of these technologies, I also hope to gain a deeper understanding of how to create effective mobile applications. In addition to the core features, I plan to implement various advanced functionalities, such as user authentication.
 
 Please stay tuned for updates on my progress!
+
+![Nomadify logo](https://github.com/TheFullStackFred/nomadify/blob/main/assets/splash.png)
