@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   KeyboardAvoidingView,
   StyleSheet,
@@ -8,23 +8,49 @@ import {
   View,
 } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
-import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from 'firebase/auth'
 import { auth } from '../firebase'
+import { useNavigation } from '@react-navigation/native'
 
 const Loginscreen = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
+  const navigation = useNavigation()
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        navigation.replace('Home')
+      }
+    })
+    return unsubscribe
+  }, [])
+
   const handleRegister = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user
+        console.log('Registered in with', user.email)
       })
       .catch((error) => {
         alert(error.message)
       })
   }
 
+  const handleLogin = () => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user
+        console.log('Logged in with', user.email)
+      })
+      .catch((error) => {
+        alert(error.message)
+      })
+  }
   return (
     <KeyboardAvoidingView style={styles.container} behavior='padding'>
       <View style={styles.inputContainer}>
@@ -43,7 +69,7 @@ const Loginscreen = () => {
         ></TextInput>
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity onPress={() => {}} style={styles.button}>
+        <TouchableOpacity onPress={handleLogin} style={styles.button}>
           <LinearGradient
             colors={['#f4c4f3', '#fc67fa']}
             style={styles.buttonGradient}
