@@ -8,10 +8,23 @@ import {
   View,
 } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth'
+import { auth } from '../firebase'
 
 const Loginscreen = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+
+  const handleRegister = () => {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user
+      })
+      .catch((error) => {
+        alert(error.message)
+      })
+  }
+
   return (
     <KeyboardAvoidingView style={styles.container} behavior='padding'>
       <View style={styles.inputContainer}>
@@ -41,7 +54,7 @@ const Loginscreen = () => {
           </LinearGradient>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => {}}
+          onPress={handleRegister}
           style={[styles.button, styles.buttonOutline]}
         >
           <Text style={styles.buttonOutlineText}>Register</Text>
