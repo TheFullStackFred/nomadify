@@ -1,7 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 import * as SplashScreen from 'expo-splash-screen'
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import Loginscreen from './screens/Loginscreen'
+import Homescreen from './screens/Homescreen'
 
+const Stack = createNativeStackNavigator()
 SplashScreen.preventAutoHideAsync()
 
 export const App = () => {
@@ -33,7 +38,16 @@ export const App = () => {
 
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
-      <Text>Nomadify</Text>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen
+            options={{ headerShown: false }}
+            name='Login'
+            component={Loginscreen}
+          />
+          <Stack.Screen name='Home' component={Homescreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </View>
   )
 }
@@ -43,7 +57,5 @@ export default App
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 })
