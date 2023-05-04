@@ -1,5 +1,4 @@
 import { View } from 'react-native'
-
 import { useNavigation } from '@react-navigation/native'
 import { useLayoutEffect } from 'react'
 import LogoutBtn from '../components/LogoutBtn'

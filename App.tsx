@@ -7,7 +7,6 @@ import Loginscreen from './screens/Loginscreen'
 import Homescreen from './screens/Homescreen'
 
 const Stack = createNativeStackNavigator()
-SplashScreen.preventAutoHideAsync()
 
 export const App = () => {
   const [appIsReady, setAppIsReady] = useState(false)
@@ -15,6 +14,7 @@ export const App = () => {
   useEffect(() => {
     async function prepare() {
       try {
+        SplashScreen.preventAutoHideAsync()
         await new Promise((resolve) => setTimeout(resolve, 3000))
       } catch (error) {
         console.warn(error)

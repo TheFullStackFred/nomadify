@@ -6,7 +6,7 @@ import { Entypo } from '@expo/vector-icons'
 const LogoutBtn = () => {
   const navigation = useNavigation()
 
-  const handleLogOut = () => {
+  const handleLogOut = (): void => {
     auth
       .signOut()
       .then(() => {

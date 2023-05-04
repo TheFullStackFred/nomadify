@@ -14,6 +14,7 @@ import {
 } from 'firebase/auth'
 import { auth } from '../firebase/firebase-config'
 import { useNavigation } from '@react-navigation/native'
+import { NavigationProp } from '@react-navigation/native'
 
 const Loginscreen = () => {
   const [email, setEmail] = useState('')
@@ -30,7 +31,7 @@ const Loginscreen = () => {
     return unsubscribe
   }, [])
 
-  const handleRegister = () => {
+  const handleRegister = (): void => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user
@@ -40,7 +41,7 @@ const Loginscreen = () => {
       })
   }
 
-  const handleLogin = () => {
+  const handleLogin = (): void => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user
@@ -53,6 +54,7 @@ const Loginscreen = () => {
     <KeyboardAvoidingView style={styles.container} behavior='height'>
       <View style={styles.inputContainer}>
         <TextInput
+          placeholderTextColor='#888888'
           autoCapitalize='none'
           placeholder='Email'
           value={email}
@@ -60,6 +62,7 @@ const Loginscreen = () => {
           style={styles.input}
         ></TextInput>
         <TextInput
+          placeholderTextColor='#888888'
           autoCapitalize='none'
           placeholder='Password'
           value={password}
