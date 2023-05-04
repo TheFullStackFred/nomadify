@@ -12,7 +12,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from 'firebase/auth'
-import { auth } from '../firebase'
+import { auth } from '../firebase/firebase-config'
 import { useNavigation } from '@react-navigation/native'
 
 const Loginscreen = () => {
@@ -30,22 +30,20 @@ const Loginscreen = () => {
     return unsubscribe
   }, [])
 
-  const handleRegister = () => {
+  const handleRegister = (): void => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user
-        console.log('Registered in with', user.email)
       })
       .catch((error) => {
         alert(error.message)
       })
   }
 
-  const handleLogin = () => {
+  const handleLogin = (): void => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user
-        console.log('Logged in with', user.email)
       })
       .catch((error) => {
         alert(error.message)
@@ -55,16 +53,20 @@ const Loginscreen = () => {
     <KeyboardAvoidingView style={styles.container} behavior='height'>
       <View style={styles.inputContainer}>
         <TextInput
-          placeholder='Email'
           value={email}
           onChangeText={(text) => setEmail(text)}
           style={styles.input}
+          placeholder='Email'
+          autoCapitalize='none'
+          placeholderTextColor='#888888'
         ></TextInput>
         <TextInput
-          placeholder='Password'
           value={password}
           onChangeText={(text) => setPassword(text)}
           style={styles.input}
+          placeholder='Password'
+          autoCapitalize='none'
+          placeholderTextColor='#888888'
           secureTextEntry
         ></TextInput>
       </View>
