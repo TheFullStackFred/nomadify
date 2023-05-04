@@ -41,7 +41,7 @@ export const App = () => {
       <NavigationContainer>
         <Stack.Navigator>
           <Stack.Screen
-            options={{ headerShown: false }}
+            options={{ headerShown: true }}
             name='Login'
             component={Loginscreen}
           />
