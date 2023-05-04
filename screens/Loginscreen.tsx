@@ -12,7 +12,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from 'firebase/auth'
-import { authentication } from '../firebase/firebase-config'
+import { auth } from '../firebase/firebase-config'
 import { useNavigation } from '@react-navigation/native'
 
 const Loginscreen = () => {
@@ -22,7 +22,7 @@ const Loginscreen = () => {
   const navigation = useNavigation()
 
   useEffect(() => {
-    const unsubscribe = authentication.onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         navigation.replace('Home')
       }
@@ -31,10 +31,9 @@ const Loginscreen = () => {
   }, [])
 
   const handleRegister = () => {
-    createUserWithEmailAndPassword(authentication, email, password)
+    createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user
-        console.log('Registered in with', user.email)
       })
       .catch((error) => {
         alert(error.message)
@@ -42,10 +41,9 @@ const Loginscreen = () => {
   }
 
   const handleLogin = () => {
-    signInWithEmailAndPassword(authentication, email, password)
+    signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         const user = userCredential.user
-        console.log('Logged in with', user.email)
       })
       .catch((error) => {
         alert(error.message)

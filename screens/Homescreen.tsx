@@ -1,13 +1,13 @@
 import { LinearGradient } from 'expo-linear-gradient'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { authentication } from '../firebase/firebase-config'
+import { auth } from '../firebase/firebase-config'
 import { useNavigation } from '@react-navigation/native'
 
 const Homescreen = () => {
   const navigation = useNavigation()
 
   const handleLogOut = () => {
-    authentication
+    auth
       .signOut()
       .then(() => {
         navigation.replace('Login')
@@ -16,7 +16,7 @@ const Homescreen = () => {
   }
   return (
     <View style={styles.container}>
-      <Text>Email: {authentication.currentUser?.email}</Text>
+      <Text>Email: {auth.currentUser?.email}</Text>
       <TouchableOpacity onPress={handleLogOut} style={styles.button}>
         <LinearGradient
           colors={['#f4c4f3', '#fc67fa']}
