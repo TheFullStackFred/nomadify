@@ -16,7 +16,7 @@ const LogoutBtn = () => {
   }
   return (
     <TouchableOpacity onPress={handleLogOut}>
-      <Entypo name='log-out' size={24} color='black' />
+      <Entypo name='log-out' size={24} color='#fc67fa' />
     </TouchableOpacity>
   )
 }
