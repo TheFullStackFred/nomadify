@@ -55,12 +55,14 @@ const Loginscreen = () => {
     <KeyboardAvoidingView style={styles.container} behavior='height'>
       <View style={styles.inputContainer}>
         <TextInput
+          autoCapitalize='none'
           placeholder='Email'
           value={email}
           onChangeText={(text) => setEmail(text)}
           style={styles.input}
         ></TextInput>
         <TextInput
+          autoCapitalize='none'
           placeholder='Password'
           value={password}
           onChangeText={(text) => setPassword(text)}
