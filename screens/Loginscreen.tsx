@@ -14,7 +14,6 @@ import {
 } from 'firebase/auth'
 import { auth } from '../firebase/firebase-config'
 import { useNavigation } from '@react-navigation/native'
-import { NavigationProp } from '@react-navigation/native'
 
 const Loginscreen = () => {
   const [email, setEmail] = useState('')
@@ -54,20 +53,20 @@ const Loginscreen = () => {
     <KeyboardAvoidingView style={styles.container} behavior='height'>
       <View style={styles.inputContainer}>
         <TextInput
-          placeholderTextColor='#888888'
-          autoCapitalize='none'
-          placeholder='Email'
           value={email}
           onChangeText={(text) => setEmail(text)}
           style={styles.input}
+          placeholder='Email'
+          autoCapitalize='none'
+          placeholderTextColor='#888888'
         ></TextInput>
         <TextInput
-          placeholderTextColor='#888888'
-          autoCapitalize='none'
-          placeholder='Password'
           value={password}
           onChangeText={(text) => setPassword(text)}
           style={styles.input}
+          placeholder='Password'
+          autoCapitalize='none'
+          placeholderTextColor='#888888'
           secureTextEntry
         ></TextInput>
       </View>

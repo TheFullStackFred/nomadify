@@ -5,6 +5,7 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import Loginscreen from './screens/Loginscreen'
 import Homescreen from './screens/Homescreen'
+import { StatusBar } from 'expo-status-bar'
 
 const Stack = createNativeStackNavigator()
 
@@ -38,13 +39,16 @@ export const App = () => {
 
   return (
     <View style={styles.container} onLayout={onLayoutRootView}>
+      <StatusBar style='light' />
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            options={{ headerShown: true }}
-            name='Login'
-            component={Loginscreen}
-          />
+        <Stack.Navigator
+          screenOptions={{
+            headerStyle: { backgroundColor: '#0a0619' },
+            headerTintColor: '#fff',
+            contentStyle: { backgroundColor: '#0a0619' },
+          }}
+        >
+          <Stack.Screen name='Login' component={Loginscreen} />
           <Stack.Screen name='Home' component={Homescreen} />
         </Stack.Navigator>
       </NavigationContainer>
