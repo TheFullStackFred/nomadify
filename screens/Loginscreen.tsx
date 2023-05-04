@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import {
   KeyboardAvoidingView,
-  StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
@@ -14,6 +13,8 @@ import {
 } from 'firebase/auth'
 import { auth } from '../firebase/firebase-config'
 import { useNavigation } from '@react-navigation/native'
+import { styles } from '../styles'
+import { FirebaseError } from 'firebase/app'
 
 const Loginscreen = () => {
   const [email, setEmail] = useState('')
@@ -30,25 +31,36 @@ const Loginscreen = () => {
     return unsubscribe
   }, [])
 
-  const handleRegister = (): void => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user
-      })
-      .catch((error) => {
+  const handleRegister = async (): Promise<void> => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      )
+      const user = userCredential.user
+    } catch (error: unknown) {
+      if (error instanceof Error) {
         alert(error.message)
-      })
+      }
+    }
   }
 
-  const handleLogin = (): void => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user
-      })
-      .catch((error) => {
+  const handleLogin = async (): Promise<void> => {
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      )
+      const user = userCredential.user
+    } catch (error: unknown) {
+      if (error instanceof Error) {
         alert(error.message)
-      })
+      }
+    }
   }
+
   return (
     <KeyboardAvoidingView style={styles.container} behavior='height'>
       <View style={styles.inputContainer}>
@@ -93,55 +105,3 @@ const Loginscreen = () => {
 }
 
 export default Loginscreen
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  inputContainer: {
-    width: '80%',
-  },
-  input: {
-    backgroundColor: '#fff',
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    borderRadius: 10,
-    marginTop: 5,
-  },
-  buttonContainer: {
-    width: '60%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 40,
-  },
-  button: {
-    width: '100%',
-    borderRadius: 10,
-    alignItems: 'center',
-  },
-  buttonGradient: {
-    width: '100%',
-    borderRadius: 10,
-    alignItems: 'center',
-  },
-  buttonOutline: {
-    backgroundColor: '#fff',
-    marginTop: 5,
-    borderColor: '#fc67fa',
-    borderWidth: 2,
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: '700',
-    fontSize: 16,
-    padding: 15,
-  },
-  buttonOutlineText: {
-    color: '#fc67fa',
-    fontWeight: '700',
-    fontSize: 16,
-    padding: 15,
-  },
-})

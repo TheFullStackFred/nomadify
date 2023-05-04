@@ -1,6 +1,5 @@
 import {
   View,
-  StyleSheet,
   TextInput,
   TouchableOpacity,
   Text,
@@ -11,6 +10,7 @@ import { useNavigation } from '@react-navigation/native'
 import { useLayoutEffect, useState } from 'react'
 import { collection, getDocs, addDoc } from 'firebase/firestore/lite'
 import { db } from '../firebase/firebase-config'
+import { styles } from '../styles'
 import LogoutBtn from '../components/LogoutBtn'
 
 const Homescreen = () => {
@@ -26,15 +26,19 @@ const Homescreen = () => {
     })
   })
 
-  const addTravel = async () => {
+  const addTravel = async (): Promise<void> => {
     await addDoc(collection(db, 'travels'), {
       country: country,
       destination: destination,
       description: description,
     })
+
+    setCountry('')
+    setDestination('')
+    setDescription('')
   }
 
-  const getTravels = async () => {
+  const getTravels = async (): Promise<void> => {
     const travelsCol = collection(db, 'travels')
     const travelSnapshot = await getDocs(travelsCol)
     const travelList = travelSnapshot.docs.map((doc) => doc.data())
@@ -85,43 +89,3 @@ const Homescreen = () => {
 }
 
 export default Homescreen
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  inputContainer: {
-    width: '80%',
-  },
-  input: {
-    backgroundColor: '#fff',
-    paddingHorizontal: 15,
-    paddingVertical: 10,
-    borderRadius: 10,
-    marginTop: 5,
-  },
-  buttonContainer: {
-    width: '60%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 40,
-  },
-  button: {
-    width: '100%',
-    borderRadius: 10,
-    alignItems: 'center',
-  },
-  buttonGradient: {
-    width: '100%',
-    borderRadius: 10,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: '700',
-    fontSize: 16,
-    padding: 15,
-  },
-})
