@@ -14,7 +14,6 @@ import {
 import { auth } from '../firebase/firebase-config'
 import { useNavigation } from '@react-navigation/native'
 import { styles } from '../styles'
-import { FirebaseError } from 'firebase/app'
 
 const Loginscreen = () => {
   const [email, setEmail] = useState('')
