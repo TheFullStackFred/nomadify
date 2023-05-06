@@ -50,4 +50,12 @@ export const styles = StyleSheet.create({
     fontSize: 16,
     padding: 15,
   },
+  imageContainer: {
+    alignItems: 'center',
+  },
+  uploadImage: {
+    marginTop: 5,
+    height: 200,
+    width: 200,
+  },
 })
