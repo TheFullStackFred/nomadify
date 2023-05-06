@@ -101,7 +101,7 @@ const Homescreen = () => {
       }
     )
 
-    setImage(null)
+    setImage('')
   }
 
   const addTravel = async (): Promise<void> => {
