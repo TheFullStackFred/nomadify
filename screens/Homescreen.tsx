@@ -6,7 +6,6 @@ import {
   KeyboardAvoidingView,
   Image,
 } from 'react-native'
-
 import { useNavigation } from '@react-navigation/native'
 import { useLayoutEffect, useState } from 'react'
 import { collection, getDocs, addDoc } from 'firebase/firestore/lite'
@@ -19,9 +18,11 @@ import LogoutBtn from '../components/LogoutBtn'
 
 const Homescreen = () => {
   const [image, setImage] = useState('')
-  const [country, setCountry] = useState('')
-  const [destination, setDestination] = useState('')
-  const [description, setDescription] = useState('')
+  const [travel, setTravel] = useState({
+    country: '',
+    destination: '',
+    description: '',
+  })
 
   const navigation = useNavigation()
 
@@ -31,7 +32,7 @@ const Homescreen = () => {
     })
   })
 
-  const pickImage = async () => {
+  const pickImage = async (): Promise<void> => {
     let result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ImagePicker.MediaTypeOptions.All,
       allowsEditing: true,
@@ -44,7 +45,7 @@ const Homescreen = () => {
     }
   }
 
-  const uploadImage = async () => {
+  const uploadImage = async (): Promise<void> => {
     const blobImage = await new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest()
       xhr.onload = function () {
@@ -106,15 +107,18 @@ const Homescreen = () => {
 
   const addTravel = async (): Promise<void> => {
     await addDoc(collection(db, 'travels'), {
-      country: country,
-      destination: destination,
-      description: description,
+      country: travel.country,
+      destination: travel.destination,
+      description: travel.description,
     })
 
     uploadImage()
-    setCountry('')
-    setDestination('')
-    setDescription('')
+    setTravel({
+      ...travel,
+      country: '',
+      destination: '',
+      description: '',
+    })
   }
 
   const getTravels = async (): Promise<void> => {
@@ -127,24 +131,29 @@ const Homescreen = () => {
     <KeyboardAvoidingView style={styles.container} behavior='height'>
       <View style={styles.inputContainer}>
         <TextInput
-          value={country}
-          onChangeText={(text) => setCountry(text)}
+          value={travel.country}
+          onChangeText={(text) => setTravel({ ...travel, country: text })}
           style={styles.input}
           placeholder='Country'
           autoCapitalize='none'
           placeholderTextColor='#888888'
         ></TextInput>
         <TextInput
-          value={destination}
-          onChangeText={(text) => setDestination(text)}
+          value={travel.destination}
+          onChangeText={(text) => setTravel({ ...travel, destination: text })}
           style={styles.input}
           placeholder='Destination'
           autoCapitalize='none'
           placeholderTextColor='#888888'
         ></TextInput>
         <TextInput
-          value={description}
-          onChangeText={(text) => setDescription(text)}
+          value={travel.description}
+          onChangeText={(text) =>
+            setTravel({
+              ...travel,
+              description: text,
+            })
+          }
           style={styles.input}
           placeholder='Description'
           autoCapitalize='none'
