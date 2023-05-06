@@ -1,10 +1,8 @@
 import {
   View,
-  TextInput,
   TouchableOpacity,
   Text,
   KeyboardAvoidingView,
-  Image,
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { useLayoutEffect, useState } from 'react'
@@ -12,9 +10,16 @@ import { collection, getDocs, addDoc } from 'firebase/firestore/lite'
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import { db, storage } from '../firebase/firebase-config'
 import * as ImagePicker from 'expo-image-picker'
-import { Entypo } from '@expo/vector-icons'
 import { styles } from '../styles'
 import LogoutBtn from '../components/LogoutBtn'
+import ImageUpload from './ImageUpload'
+import TravelInfoForm from './TravelInfoForm'
+
+interface Travel {
+  country: string
+  destination: string
+  description: string
+}
 
 const AddTravel = () => {
   const [image, setImage] = useState('')
@@ -31,6 +36,10 @@ const AddTravel = () => {
       headerRight: () => <LogoutBtn />,
     })
   })
+
+  const onTravelInfoChange = (travel: Travel): void => {
+    setTravel(travel)
+  }
 
   const pickImage = async (): Promise<void> => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -129,47 +138,8 @@ const AddTravel = () => {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior='height'>
-      <View style={styles.inputContainer}>
-        <TextInput
-          value={travel.country}
-          onChangeText={(text) => setTravel({ ...travel, country: text })}
-          style={styles.input}
-          placeholder='Country'
-          autoCapitalize='none'
-          placeholderTextColor='#888888'
-        ></TextInput>
-        <TextInput
-          value={travel.destination}
-          onChangeText={(text) => setTravel({ ...travel, destination: text })}
-          style={styles.input}
-          placeholder='Destination'
-          autoCapitalize='none'
-          placeholderTextColor='#888888'
-        ></TextInput>
-        <TextInput
-          value={travel.description}
-          onChangeText={(text) =>
-            setTravel({
-              ...travel,
-              description: text,
-            })
-          }
-          style={styles.input}
-          placeholder='Description'
-          autoCapitalize='none'
-          placeholderTextColor='#888888'
-          multiline={true}
-        ></TextInput>
-        <View style={styles.imageContainer}>
-          <Text style={styles.buttonOutlineText}>Pick an image</Text>
-          <TouchableOpacity onPress={pickImage}>
-            <Entypo name='upload' size={24} color='#fc67fa' />
-          </TouchableOpacity>
-          {image && (
-            <Image source={{ uri: image }} style={styles.uploadImage} />
-          )}
-        </View>
-      </View>
+      <TravelInfoForm travel={travel} setTravel={setTravel} />
+      <ImageUpload pickImage={pickImage} image={image} />
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           onPress={addTravel}
