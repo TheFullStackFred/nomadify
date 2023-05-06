@@ -1,27 +1,21 @@
 import { TextInput, View } from 'react-native'
 import { styles } from '../styles'
+import { Travel } from '../interfaces/interfaces'
 
-type TravelInfoFormProps = {
-  travel: {
-    country: string
-    destination: string
-    description: string
-  }
-  setTravel: React.Dispatch<
-    React.SetStateAction<{
-      country: string
-      destination: string
-      description: string
-    }>
-  >
+interface TravelInfoFormProps {
+  travel: Travel
+  onTravelInfoChange: (field: keyof Travel, value: string) => void
 }
 
-const TravelInfoForm = ({ travel, setTravel }: TravelInfoFormProps) => {
+const TravelInfoForm = ({
+  travel,
+  onTravelInfoChange,
+}: TravelInfoFormProps) => {
   return (
     <View style={styles.inputContainer}>
       <TextInput
         value={travel.country}
-        onChangeText={(text) => setTravel({ ...travel, country: text })}
+        onChangeText={(text) => onTravelInfoChange('country', text)}
         style={styles.input}
         placeholder='Country'
         autoCapitalize='none'
@@ -29,7 +23,7 @@ const TravelInfoForm = ({ travel, setTravel }: TravelInfoFormProps) => {
       ></TextInput>
       <TextInput
         value={travel.destination}
-        onChangeText={(text) => setTravel({ ...travel, destination: text })}
+        onChangeText={(text) => onTravelInfoChange('destination', text)}
         style={styles.input}
         placeholder='Destination'
         autoCapitalize='none'
@@ -37,12 +31,7 @@ const TravelInfoForm = ({ travel, setTravel }: TravelInfoFormProps) => {
       ></TextInput>
       <TextInput
         value={travel.description}
-        onChangeText={(text) =>
-          setTravel({
-            ...travel,
-            description: text,
-          })
-        }
+        onChangeText={(text) => onTravelInfoChange('description', text)}
         style={styles.input}
         placeholder='Description'
         autoCapitalize='none'

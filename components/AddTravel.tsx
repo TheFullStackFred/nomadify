@@ -14,16 +14,11 @@ import { styles } from '../styles'
 import LogoutBtn from '../components/LogoutBtn'
 import ImageUpload from './ImageUpload'
 import TravelInfoForm from './TravelInfoForm'
-
-interface Travel {
-  country: string
-  destination: string
-  description: string
-}
+import { Travel } from '../interfaces/interfaces'
 
 const AddTravel = () => {
   const [image, setImage] = useState('')
-  const [travel, setTravel] = useState({
+  const [travel, setTravel] = useState<Travel>({
     country: '',
     destination: '',
     description: '',
@@ -37,8 +32,11 @@ const AddTravel = () => {
     })
   })
 
-  const onTravelInfoChange = (travel: Travel): void => {
-    setTravel(travel)
+  const onTravelInfoChange = (field: keyof Travel, value: string) => {
+    setTravel((prevTravel) => ({
+      ...prevTravel,
+      [field]: value,
+    }))
   }
 
   const pickImage = async (): Promise<void> => {
@@ -138,7 +136,7 @@ const AddTravel = () => {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior='height'>
-      <TravelInfoForm travel={travel} setTravel={setTravel} />
+      <TravelInfoForm travel={travel} onTravelInfoChange={onTravelInfoChange} />
       <ImageUpload pickImage={pickImage} image={image} />
       <View style={styles.buttonContainer}>
         <TouchableOpacity
