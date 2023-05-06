@@ -2,7 +2,7 @@ import { View, TouchableOpacity, Text, Image } from 'react-native'
 import { Entypo } from '@expo/vector-icons'
 import { styles } from '../styles'
 
-type ImageUploadProps = {
+interface ImageUploadProps {
   image: string
   pickImage: () => void
 }
