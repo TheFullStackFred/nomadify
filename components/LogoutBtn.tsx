@@ -22,5 +22,3 @@ const LogoutBtn = () => {
 }
 
 export default LogoutBtn
-
-const styles = StyleSheet.create({})

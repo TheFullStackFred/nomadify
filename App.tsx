@@ -3,8 +3,8 @@ import { View, StyleSheet } from 'react-native'
 import * as SplashScreen from 'expo-splash-screen'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import Loginscreen from './screens/Loginscreen'
-import Homescreen from './screens/Homescreen'
+import Loginscreen from './screens/LoginScreen/Loginscreen'
+import AddTravelScreen from './screens/AddTravelScreen/AddTravelScreen'
 import { StatusBar } from 'expo-status-bar'
 
 const Stack = createNativeStackNavigator()
@@ -49,7 +49,7 @@ export const App = () => {
           }}
         >
           <Stack.Screen name='Login' component={Loginscreen} />
-          <Stack.Screen name='Home' component={Homescreen} />
+          <Stack.Screen name='AddTravel' component={AddTravelScreen} />
         </Stack.Navigator>
       </NavigationContainer>
     </View>

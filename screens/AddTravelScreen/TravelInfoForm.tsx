@@ -1,6 +1,6 @@
 import { TextInput, View } from 'react-native'
-import { styles } from '../styles'
-import { Travel } from '../interfaces/interfaces'
+import { formStyles } from '../../styles'
+import { Travel } from '../../interfaces/interfaces'
 
 interface TravelInfoFormProps {
   travel: Travel
@@ -12,11 +12,11 @@ const TravelInfoForm = ({
   onTravelInfoChange,
 }: TravelInfoFormProps) => {
   return (
-    <View style={styles.inputContainer}>
+    <View style={formStyles.inputContainer}>
       <TextInput
         value={travel.country}
         onChangeText={(text) => onTravelInfoChange('country', text)}
-        style={styles.input}
+        style={formStyles.input}
         placeholder='Country'
         autoCapitalize='none'
         placeholderTextColor='#888888'
@@ -24,7 +24,7 @@ const TravelInfoForm = ({
       <TextInput
         value={travel.destination}
         onChangeText={(text) => onTravelInfoChange('destination', text)}
-        style={styles.input}
+        style={formStyles.input}
         placeholder='Destination'
         autoCapitalize='none'
         placeholderTextColor='#888888'
@@ -32,7 +32,7 @@ const TravelInfoForm = ({
       <TextInput
         value={travel.description}
         onChangeText={(text) => onTravelInfoChange('description', text)}
-        style={styles.input}
+        style={formStyles.input}
         placeholder='Description'
         autoCapitalize='none'
         placeholderTextColor='#888888'

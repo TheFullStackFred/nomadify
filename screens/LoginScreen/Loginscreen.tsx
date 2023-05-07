@@ -4,9 +4,9 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from 'firebase/auth'
-import { auth } from '../firebase/firebase-config'
-import { Credentials } from '../interfaces/interfaces'
-import LoginRegisterForm from '../components/LoginRegisterForm'
+import { auth } from '../../firebase/firebase-config'
+import { Credentials } from '../../interfaces/interfaces'
+import LoginRegisterForm from './LoginRegisterForm'
 
 const Loginscreen = () => {
   const [credentials, setCredentials] = useState({ email: '', password: '' })
@@ -16,7 +16,7 @@ const Loginscreen = () => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        navigation.replace('Home')
+        navigation.replace('AddTravel')
       }
     })
     return unsubscribe

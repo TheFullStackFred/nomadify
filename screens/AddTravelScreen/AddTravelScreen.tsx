@@ -8,15 +8,15 @@ import { useNavigation } from '@react-navigation/native'
 import { useLayoutEffect, useState } from 'react'
 import { collection, getDocs, addDoc } from 'firebase/firestore/lite'
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
-import { db, storage } from '../firebase/firebase-config'
+import { db, storage } from '../../firebase/firebase-config'
 import * as ImagePicker from 'expo-image-picker'
-import { styles } from '../styles'
-import LogoutBtn from '../components/LogoutBtn'
+import { formStyles } from '../../styles'
+import LogoutBtn from '../../components/LogoutBtn'
+import { Travel } from '../../interfaces/interfaces'
 import ImageUpload from './ImageUpload'
 import TravelInfoForm from './TravelInfoForm'
-import { Travel } from '../interfaces/interfaces'
 
-const AddTravel = () => {
+const AddTravelScreen = () => {
   const [image, setImage] = useState('')
   const [travel, setTravel] = useState<Travel>({
     country: '',
@@ -135,19 +135,19 @@ const AddTravel = () => {
   }
 
   return (
-    <KeyboardAvoidingView style={styles.container} behavior='height'>
+    <KeyboardAvoidingView style={formStyles.container} behavior='height'>
       <TravelInfoForm travel={travel} onTravelInfoChange={onTravelInfoChange} />
       <ImageUpload pickImage={pickImage} image={image} />
-      <View style={styles.buttonContainer}>
+      <View style={formStyles.buttonContainer}>
         <TouchableOpacity
           onPress={addTravel}
-          style={[styles.button, styles.buttonOutline]}
+          style={[formStyles.button, formStyles.buttonOutline]}
         >
-          <Text style={styles.buttonOutlineText}>Add travel</Text>
+          <Text style={formStyles.buttonOutlineText}>Add travel</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   )
 }
 
-export default AddTravel
+export default AddTravelScreen

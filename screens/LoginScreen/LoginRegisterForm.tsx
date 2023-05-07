@@ -6,8 +6,8 @@ import {
   View,
 } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
-import { styles } from '../styles'
-import { Credentials } from '../interfaces/interfaces'
+import { formStyles } from '../../styles'
+import { Credentials } from '../../interfaces/interfaces'
 
 interface LoginRegisterFormProps {
   credentials: Credentials
@@ -23,12 +23,12 @@ const LoginRegisterForm = ({
   handleRegister,
 }: LoginRegisterFormProps) => {
   return (
-    <KeyboardAvoidingView style={styles.container} behavior='height'>
-      <View style={styles.inputContainer}>
+    <KeyboardAvoidingView style={formStyles.container} behavior='height'>
+      <View style={formStyles.inputContainer}>
         <TextInput
           value={credentials.email}
           onChangeText={(text) => onUserInfoChange('email', text)}
-          style={styles.input}
+          style={formStyles.input}
           placeholder='Email'
           autoCapitalize='none'
           placeholderTextColor='#888888'
@@ -36,29 +36,29 @@ const LoginRegisterForm = ({
         <TextInput
           value={credentials.password}
           onChangeText={(text) => onUserInfoChange('password', text)}
-          style={styles.input}
+          style={formStyles.input}
           placeholder='Password'
           autoCapitalize='none'
           placeholderTextColor='#888888'
           secureTextEntry
         ></TextInput>
       </View>
-      <View style={styles.buttonContainer}>
-        <TouchableOpacity onPress={handleLogin} style={styles.button}>
+      <View style={formStyles.buttonContainer}>
+        <TouchableOpacity onPress={handleLogin} style={formStyles.button}>
           <LinearGradient
             colors={['#f4c4f3', '#fc67fa']}
-            style={styles.buttonGradient}
+            style={formStyles.buttonGradient}
             start={[0, 0]}
             end={[1, 0]}
           >
-            <Text style={styles.buttonText}>Login</Text>
+            <Text style={formStyles.buttonText}>Login</Text>
           </LinearGradient>
         </TouchableOpacity>
         <TouchableOpacity
           onPress={handleRegister}
-          style={[styles.button, styles.buttonOutline]}
+          style={[formStyles.button, formStyles.buttonOutline]}
         >
-          <Text style={styles.buttonOutlineText}>Register</Text>
+          <Text style={formStyles.buttonOutlineText}>Register</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
