@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import {
   createUserWithEmailAndPassword,
@@ -7,8 +7,11 @@ import {
 import { auth } from '../../firebase/firebase-config'
 import { Credentials } from '../../interfaces/interfaces'
 import LoginRegisterForm from './LoginRegisterForm'
+import AuthContext from '../../context/AuthContext'
 
 const Loginscreen = () => {
+  const { setIsLoggedIn } = useContext(AuthContext)
+
   const [credentials, setCredentials] = useState({ email: '', password: '' })
 
   const navigation = useNavigation()
@@ -16,7 +19,10 @@ const Loginscreen = () => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        navigation.replace('AddTravel')
+        setIsLoggedIn(true)
+        navigation.replace('MyTravels')
+      } else {
+        setIsLoggedIn(false)
       }
     })
     return unsubscribe
