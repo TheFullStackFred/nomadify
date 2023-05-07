@@ -3,3 +3,8 @@ export interface Travel {
   destination: string
   description: string
 }
+
+export interface User {
+  email: string
+  password: string
+}
