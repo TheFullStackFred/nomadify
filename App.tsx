@@ -1,5 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { View, StyleSheet } from 'react-native'
+import {
+  View,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  Keyboard,
+} from 'react-native'
 import * as SplashScreen from 'expo-splash-screen'
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
@@ -33,26 +38,32 @@ export const App = () => {
     }
   }, [appIsReady])
 
+  const dismissKeyboard = () => {
+    Keyboard.dismiss()
+  }
+
   if (!appIsReady) {
     return null
   }
 
   return (
-    <View style={styles.container} onLayout={onLayoutRootView}>
-      <StatusBar style='light' />
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerStyle: { backgroundColor: '#0a0619' },
-            headerTintColor: '#fff',
-            contentStyle: { backgroundColor: '#0a0619' },
-          }}
-        >
-          <Stack.Screen name='Login' component={Loginscreen} />
-          <Stack.Screen name='AddTravel' component={AddTravelScreen} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </View>
+    <TouchableWithoutFeedback onPress={dismissKeyboard}>
+      <View style={styles.container} onLayout={onLayoutRootView}>
+        <StatusBar style='light' />
+        <NavigationContainer>
+          <Stack.Navigator
+            screenOptions={{
+              headerStyle: { backgroundColor: '#0a0619' },
+              headerTintColor: '#fff',
+              contentStyle: { backgroundColor: '#0a0619' },
+            }}
+          >
+            <Stack.Screen name='Login' component={Loginscreen} />
+            <Stack.Screen name='AddTravel' component={AddTravelScreen} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </View>
+    </TouchableWithoutFeedback>
   )
 }
 
