@@ -4,7 +4,7 @@ export interface Travel {
   description: string
 }
 
-export interface User {
+export interface Credentials {
   email: string
   password: string
 }
