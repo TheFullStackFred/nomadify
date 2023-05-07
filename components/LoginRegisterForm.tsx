@@ -7,40 +7,29 @@ import {
 } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import { styles } from '../styles'
-import { User } from '../interfaces/interfaces'
 
-interface LoginFormProps {
-  user: User
-  setUser: React.Dispatch<
-    React.SetStateAction<{
-      email: string
-      password: string
-    }>
-  >
-  handleLogin: () => Promise<void>
-  handleRegister: () => Promise<void>
-}
-
-const LoginForm = ({
-  user,
-  setUser,
+const LoginRegisterForm = ({
+  email,
+  setEmail,
+  password,
+  setPassword,
   handleLogin,
   handleRegister,
-}: LoginFormProps) => {
+}) => {
   return (
     <KeyboardAvoidingView style={styles.container} behavior='height'>
       <View style={styles.inputContainer}>
         <TextInput
-          value={user.email}
-          onChangeText={(text) => setUser({ ...user, email: text })}
+          value={email}
+          onChangeText={(text) => setEmail(text)}
           style={styles.input}
           placeholder='Email'
           autoCapitalize='none'
           placeholderTextColor='#888888'
         ></TextInput>
         <TextInput
-          value={user.password}
-          onChangeText={(text) => setUser({ ...user, password: text })}
+          value={password}
+          onChangeText={(text) => setPassword(text)}
           style={styles.input}
           placeholder='Password'
           autoCapitalize='none'
@@ -70,4 +59,4 @@ const LoginForm = ({
   )
 }
 
-export default LoginForm
+export default LoginRegisterForm
