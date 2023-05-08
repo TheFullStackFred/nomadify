@@ -73,3 +73,11 @@ export const logoutBtnStyles = StyleSheet.create({
     paddingRight: 10,
   },
 })
+
+export const confettiStyles = StyleSheet.create({
+  text: {
+    color: '#fc67fa',
+    fontSize: 40,
+    fontWeight: 'bold',
+  },
+})

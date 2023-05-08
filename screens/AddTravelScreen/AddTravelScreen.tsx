@@ -15,15 +15,16 @@ import LogoutBtn from '../../components/LogoutBtn'
 import ImageUpload from './ImageUpload'
 import TravelInfoForm from './TravelInfoForm'
 import { formStyles } from '../../styles'
+import Confetti from '../../components/Confetti'
 
 const AddTravelScreen = () => {
   const [image, setImage] = useState('')
+  const [success, setSuccess] = useState(false)
   const [travel, setTravel] = useState<Travel>({
     country: '',
     destination: '',
     description: '',
   })
-
   const navigation = useNavigation()
 
   useLayoutEffect(() => {
@@ -126,6 +127,10 @@ const AddTravelScreen = () => {
       destination: '',
       description: '',
     })
+    setSuccess(true)
+    setTimeout(() => {
+      setSuccess(false)
+    }, 5000)
   }
 
   const getTravels = async (): Promise<void> => {
@@ -136,16 +141,27 @@ const AddTravelScreen = () => {
 
   return (
     <KeyboardAvoidingView style={formStyles.container} behavior='height'>
-      <TravelInfoForm travel={travel} onTravelInfoChange={onTravelInfoChange} />
-      <ImageUpload pickImage={pickImage} image={image} />
-      <View style={formStyles.buttonContainer}>
-        <TouchableOpacity
-          onPress={addTravel}
-          style={[formStyles.button, formStyles.buttonOutline]}
-        >
-          <Text style={formStyles.buttonOutlineText}>Add travel</Text>
-        </TouchableOpacity>
-      </View>
+      {!success ? (
+        <>
+          <TravelInfoForm
+            travel={travel}
+            onTravelInfoChange={onTravelInfoChange}
+          />
+          <ImageUpload pickImage={pickImage} image={image} />
+          <View style={formStyles.buttonContainer}>
+            {travel.country && travel.destination && travel.description && (
+              <TouchableOpacity
+                style={[formStyles.button, formStyles.buttonOutline]}
+                onPress={addTravel}
+              >
+                <Text style={formStyles.buttonOutlineText}>Add travel</Text>
+              </TouchableOpacity>
+            )}
+          </View>
+        </>
+      ) : (
+        <Confetti />
+      )}
     </KeyboardAvoidingView>
   )
 }
