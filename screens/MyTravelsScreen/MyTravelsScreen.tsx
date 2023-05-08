@@ -1,13 +1,12 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { Text, View } from 'react-native'
+import { defaultStyles } from '../../styles'
 
 const MyTravelsScreen = () => {
   return (
-    <View>
+    <View style={defaultStyles.container}>
       <Text>MyTravelsScreen</Text>
     </View>
   )
 }
 
 export default MyTravelsScreen
-
-const styles = StyleSheet.create({})
