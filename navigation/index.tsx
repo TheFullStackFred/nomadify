@@ -68,7 +68,7 @@ const BottomTabNavigator = () => {
         options={{
           title: 'Add Travel',
           tabBarIcon: ({ color, size }) => (
-            <Entypo name='aircraft' size={24} color={color} />
+            <AntDesign name='pluscircle' size={24} color={color} />
           ),
         }}
       />
@@ -78,7 +78,7 @@ const BottomTabNavigator = () => {
         options={{
           title: 'My Travels',
           tabBarIcon: ({ color, size }) => (
-            <AntDesign name='pluscircle' size={24} color={color} />
+            <Entypo name='aircraft' size={24} color={color} />
           ),
         }}
       />
