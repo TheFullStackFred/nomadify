@@ -5,6 +5,7 @@ export const formStyles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: '#0a0619',
   },
   inputContainer: {
     width: '80%',
@@ -57,5 +58,18 @@ export const formStyles = StyleSheet.create({
     marginTop: 5,
     height: 200,
     width: 200,
+  },
+})
+
+export const defaultStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#0a0619',
+  },
+})
+
+export const logoutBtnStyles = StyleSheet.create({
+  logoutBtn: {
+    paddingRight: 10,
   },
 })

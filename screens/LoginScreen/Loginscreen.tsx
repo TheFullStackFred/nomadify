@@ -1,17 +1,18 @@
 import { useEffect, useState } from 'react'
-import { useNavigation } from '@react-navigation/native'
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from 'firebase/auth'
 import { auth } from '../../firebase/firebase-config'
 import { Credentials } from '../../interfaces/interfaces'
+import { NativeStackScreenProps } from '@react-navigation/native-stack'
+import { RootStackParamList } from '../../navigation/index'
 import LoginRegisterForm from './LoginRegisterForm'
 
-const Loginscreen = () => {
-  const [credentials, setCredentials] = useState({ email: '', password: '' })
+type Props = NativeStackScreenProps<RootStackParamList, 'Login'>
 
-  const navigation = useNavigation()
+const LoginScreen = ({ navigation }: Props) => {
+  const [credentials, setCredentials] = useState({ email: '', password: '' })
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -69,4 +70,4 @@ const Loginscreen = () => {
   )
 }
 
-export default Loginscreen
+export default LoginScreen
