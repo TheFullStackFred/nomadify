@@ -10,11 +10,11 @@ import { collection, getDocs, addDoc } from 'firebase/firestore/lite'
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import { db, storage } from '../../firebase/firebase-config'
 import * as ImagePicker from 'expo-image-picker'
-import { formStyles } from '../../styles'
-import LogoutBtn from '../../components/LogoutBtn'
 import { Travel } from '../../interfaces/interfaces'
+import LogoutBtn from '../../components/LogoutBtn'
 import ImageUpload from './ImageUpload'
 import TravelInfoForm from './TravelInfoForm'
+import { formStyles } from '../../styles'
 
 const AddTravelScreen = () => {
   const [image, setImage] = useState('')

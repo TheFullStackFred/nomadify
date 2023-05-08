@@ -51,7 +51,7 @@ const BottomTab = createBottomTabNavigator<RootStackParamList>()
 const BottomTabNavigator = () => {
   return (
     <BottomTab.Navigator
-      initialRouteName='AddTravel'
+      initialRouteName='MyTravels'
       screenOptions={{
         headerStyle: { backgroundColor: '#0a0619' },
         headerTintColor: '#fff',

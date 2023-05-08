@@ -1,6 +1,6 @@
 import { TextInput, View } from 'react-native'
-import { formStyles } from '../../styles'
 import { Travel } from '../../interfaces/interfaces'
+import { formStyles } from '../../styles'
 
 interface TravelInfoFormProps {
   travel: Travel

@@ -67,3 +67,9 @@ export const defaultStyles = StyleSheet.create({
     backgroundColor: '#0a0619',
   },
 })
+
+export const logoutBtnStyles = StyleSheet.create({
+  logoutBtn: {
+    paddingRight: 10,
+  },
+})
