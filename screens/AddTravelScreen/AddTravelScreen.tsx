@@ -10,12 +10,12 @@ import { collection, getDocs, addDoc } from 'firebase/firestore/lite'
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import { db, storage } from '../../firebase/firebase-config'
 import * as ImagePicker from 'expo-image-picker'
-import ConfettiCannon from 'react-native-confetti-cannon'
 import { Travel } from '../../interfaces/interfaces'
 import LogoutBtn from '../../components/LogoutBtn'
 import ImageUpload from './ImageUpload'
 import TravelInfoForm from './TravelInfoForm'
 import { formStyles } from '../../styles'
+import Confetti from '../../components/Confetti'
 
 const AddTravelScreen = () => {
   const [image, setImage] = useState('')
@@ -141,19 +141,27 @@ const AddTravelScreen = () => {
 
   return (
     <KeyboardAvoidingView style={formStyles.container} behavior='height'>
-      {success && (
-        <ConfettiCannon count={300} origin={{ x: -10, y: 0 }} fadeOut />
+      {!success ? (
+        <>
+          <TravelInfoForm
+            travel={travel}
+            onTravelInfoChange={onTravelInfoChange}
+          />
+          <ImageUpload pickImage={pickImage} image={image} />
+          <View style={formStyles.buttonContainer}>
+            {travel.country && travel.destination && travel.description && (
+              <TouchableOpacity
+                style={[formStyles.button, formStyles.buttonOutline]}
+                onPress={addTravel}
+              >
+                <Text style={formStyles.buttonOutlineText}>Add travel</Text>
+              </TouchableOpacity>
+            )}
+          </View>
+        </>
+      ) : (
+        <Confetti />
       )}
-      <TravelInfoForm travel={travel} onTravelInfoChange={onTravelInfoChange} />
-      <ImageUpload pickImage={pickImage} image={image} />
-      <View style={formStyles.buttonContainer}>
-        <TouchableOpacity
-          onPress={addTravel}
-          style={[formStyles.button, formStyles.buttonOutline]}
-        >
-          <Text style={formStyles.buttonOutlineText}>Add travel</Text>
-        </TouchableOpacity>
-      </View>
     </KeyboardAvoidingView>
   )
 }
