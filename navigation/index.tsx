@@ -1,6 +1,8 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { NavigationContainer } from '@react-navigation/native'
+import { Entypo } from '@expo/vector-icons'
+import { AntDesign } from '@expo/vector-icons'
 import Loginscreen from '../screens/LoginScreen/Loginscreen'
 import AddTravelScreen from '../screens/AddTravelScreen/AddTravelScreen'
 import MyTravelsScreen from '../screens/MyTravelsScreen/MyTravelsScreen'
@@ -65,6 +67,9 @@ const BottomTabNavigator = () => {
         component={AddTravelScreen}
         options={{
           title: 'Add Travel',
+          tabBarIcon: ({ color, size }) => (
+            <Entypo name='aircraft' size={24} color={color} />
+          ),
         }}
       />
       <BottomTab.Screen
@@ -72,6 +77,9 @@ const BottomTabNavigator = () => {
         component={MyTravelsScreen}
         options={{
           title: 'My Travels',
+          tabBarIcon: ({ color, size }) => (
+            <AntDesign name='pluscircle' size={24} color={color} />
+          ),
         }}
       />
     </BottomTab.Navigator>
