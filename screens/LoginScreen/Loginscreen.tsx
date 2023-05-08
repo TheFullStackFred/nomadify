@@ -16,7 +16,7 @@ const Loginscreen = () => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        navigation.replace('AddTravel')
+        navigation.replace('Root')
       }
     })
     return unsubscribe
