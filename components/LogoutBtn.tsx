@@ -1,11 +1,14 @@
-import { StyleSheet, TouchableOpacity } from 'react-native'
+import { TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { auth } from '../firebase/firebase-config'
 import { Entypo } from '@expo/vector-icons'
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import type { RootStackParamList } from '../navigation'
 import { logoutBtnStyles } from '../styles'
 
 const LogoutBtn = () => {
-  const navigation = useNavigation()
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>()
 
   const handleLogOut = (): void => {
     auth
