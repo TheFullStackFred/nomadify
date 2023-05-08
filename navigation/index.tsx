@@ -50,9 +50,30 @@ const BottomTab = createBottomTabNavigator<RootStackParamList>()
 
 const BottomTabNavigator = () => {
   return (
-    <BottomTab.Navigator initialRouteName='AddTravel'>
-      <BottomTab.Screen name='AddTravel' component={AddTravelScreen} />
-      <BottomTab.Screen name='MyTravels' component={MyTravelsScreen} />
+    <BottomTab.Navigator
+      initialRouteName='AddTravel'
+      screenOptions={{
+        headerStyle: { backgroundColor: '#0a0619' },
+        headerTintColor: '#fff',
+        tabBarStyle: { backgroundColor: '#0a0619' },
+        tabBarActiveTintColor: '#fc67fa',
+        tabBarInactiveTintColor: '#fff',
+      }}
+    >
+      <BottomTab.Screen
+        name='AddTravel'
+        component={AddTravelScreen}
+        options={{
+          title: 'Add Travel',
+        }}
+      />
+      <BottomTab.Screen
+        name='MyTravels'
+        component={MyTravelsScreen}
+        options={{
+          title: 'My Travels',
+        }}
+      />
     </BottomTab.Navigator>
   )
 }
