@@ -6,13 +6,8 @@ import {
   Keyboard,
 } from 'react-native'
 import * as SplashScreen from 'expo-splash-screen'
-import { NavigationContainer } from '@react-navigation/native'
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
-import Loginscreen from './screens/LoginScreen/Loginscreen'
-import AddTravelScreen from './screens/AddTravelScreen/AddTravelScreen'
 import { StatusBar } from 'expo-status-bar'
-
-const Stack = createNativeStackNavigator()
+import Navigation from './navigation'
 
 export const App = () => {
   const [appIsReady, setAppIsReady] = useState(false)
@@ -50,18 +45,7 @@ export const App = () => {
     <TouchableWithoutFeedback onPress={dismissKeyboard}>
       <View style={styles.container} onLayout={onLayoutRootView}>
         <StatusBar style='light' />
-        <NavigationContainer>
-          <Stack.Navigator
-            screenOptions={{
-              headerStyle: { backgroundColor: '#0a0619' },
-              headerTintColor: '#fff',
-              contentStyle: { backgroundColor: '#0a0619' },
-            }}
-          >
-            <Stack.Screen name='Login' component={Loginscreen} />
-            <Stack.Screen name='AddTravel' component={AddTravelScreen} />
-          </Stack.Navigator>
-        </NavigationContainer>
+        <Navigation />
       </View>
     </TouchableWithoutFeedback>
   )
