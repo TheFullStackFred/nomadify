@@ -10,6 +10,7 @@ import { collection, getDocs, addDoc } from 'firebase/firestore/lite'
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import { db, storage } from '../../firebase/firebase-config'
 import * as ImagePicker from 'expo-image-picker'
+import ConfettiCannon from 'react-native-confetti-cannon'
 import { Travel } from '../../interfaces/interfaces'
 import LogoutBtn from '../../components/LogoutBtn'
 import ImageUpload from './ImageUpload'
@@ -18,12 +19,12 @@ import { formStyles } from '../../styles'
 
 const AddTravelScreen = () => {
   const [image, setImage] = useState('')
+  const [success, setSuccess] = useState(false)
   const [travel, setTravel] = useState<Travel>({
     country: '',
     destination: '',
     description: '',
   })
-
   const navigation = useNavigation()
 
   useLayoutEffect(() => {
@@ -126,6 +127,10 @@ const AddTravelScreen = () => {
       destination: '',
       description: '',
     })
+    setSuccess(true)
+    setTimeout(() => {
+      setSuccess(false)
+    }, 5000)
   }
 
   const getTravels = async (): Promise<void> => {
@@ -136,6 +141,9 @@ const AddTravelScreen = () => {
 
   return (
     <KeyboardAvoidingView style={formStyles.container} behavior='height'>
+      {success && (
+        <ConfettiCannon count={300} origin={{ x: -10, y: 0 }} fadeOut />
+      )}
       <TravelInfoForm travel={travel} onTravelInfoChange={onTravelInfoChange} />
       <ImageUpload pickImage={pickImage} image={image} />
       <View style={formStyles.buttonContainer}>
