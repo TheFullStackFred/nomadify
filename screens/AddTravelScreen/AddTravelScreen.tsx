@@ -6,7 +6,7 @@ import {
 } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { useLayoutEffect, useState } from 'react'
-import { collection, getDocs, addDoc } from 'firebase/firestore/lite'
+import { collection, addDoc } from 'firebase/firestore/lite'
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage'
 import { db, storage } from '../../firebase/firebase-config'
 import * as ImagePicker from 'expo-image-picker'
@@ -25,6 +25,7 @@ const AddTravelScreen = () => {
     destination: '',
     description: '',
   })
+
   const navigation = useNavigation()
 
   useLayoutEffect(() => {
