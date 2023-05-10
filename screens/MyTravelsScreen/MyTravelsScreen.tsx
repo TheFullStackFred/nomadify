@@ -1,7 +1,12 @@
 import { useLayoutEffect, useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 import { FlatList, View, Text, Image, StyleSheet } from 'react-native'
-import { DocumentData, collection, getDocs } from 'firebase/firestore/lite'
+import {
+  DocumentData,
+  collection,
+  getDocs,
+  onSnapshot,
+} from 'firebase/firestore'
 import { db } from '../../firebase/firebase-config'
 import { defaultStyles } from '../../styles'
 import LogoutBtn from '../../components/LogoutBtn'
