@@ -53,83 +53,103 @@ const AddTravelScreen = () => {
     }
   }
 
-  const uploadImage = async (): Promise<void> => {
-    const blobImage = await new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest()
-      xhr.onload = function () {
-        resolve(xhr.response)
-      }
-      xhr.onerror = function () {
-        reject(new TypeError('Network request failed'))
-      }
-      xhr.responseType = 'blob'
-      xhr.open('GET', image, true)
-      xhr.send(null)
-    })
-
-    const metadata = {
-      contentType: 'image/jpeg',
-    }
-
-    const storageRef = ref(storage, 'images/' + Date.now())
-    const uploadTask = uploadBytesResumable(
-      storageRef,
-      blobImage as Blob,
-      metadata
-    )
-
-    uploadTask.on(
-      'state_changed',
-      (snapshot) => {
-        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-        console.log('Upload is ' + progress + '% done')
-        switch (snapshot.state) {
-          case 'paused':
-            console.log('Upload is paused')
-            break
-          case 'running':
-            console.log('Upload is running')
-            break
-        }
-      },
-      (error) => {
-        switch (error.code) {
-          case 'storage/unauthorized':
-            break
-          case 'storage/canceled':
-            break
-
-          case 'storage/unknown':
-            break
-        }
-      },
-      async () => {
-        const downloadURL = await getDownloadURL(uploadTask.snapshot.ref)
-        console.log('File available at', downloadURL)
-      }
-    )
-
-    setImage('')
-  }
-
   const addTravel = async (): Promise<void> => {
-    await addDoc(collection(db, 'travels'), {
-      country: travel.country,
-      destination: travel.destination,
-      description: travel.description,
-    })
+    let downloadURL = ''
+    if (image) {
+      const blobImage = await new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest()
+        xhr.onload = function () {
+          resolve(xhr.response)
+        }
+        xhr.onerror = function () {
+          reject(new TypeError('Network request failed'))
+        }
+        xhr.responseType = 'blob'
+        xhr.open('GET', image, true)
+        xhr.send(null)
+      })
 
-    uploadImage()
-    setTravel({
-      ...travel,
-      country: '',
-      destination: '',
-      description: '',
-    })
-    setSuccess(true)
-    setTimeout(() => {
-      setSuccess(false)
-    }, 5000)
+      const metadata = {
+        contentType: 'image/jpeg',
+      }
+
+      const storageRef = ref(storage, 'images/' + Date.now())
+      const uploadTask = uploadBytesResumable(
+        storageRef,
+        blobImage as Blob,
+        metadata
+      )
+
+      uploadTask.on(
+        'state_changed',
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+          console.log('Upload is ' + progress + '% done')
+          switch (snapshot.state) {
+            case 'paused':
+              console.log('Upload is paused')
+              break
+            case 'running':
+              console.log('Upload is running')
+              break
+          }
+        },
+        (error) => {
+          switch (error.code) {
+            case 'storage/unauthorized':
+              break
+            case 'storage/canceled':
+              break
+
+            case 'storage/unknown':
+              break
+          }
+        },
+        async () => {
+          downloadURL = await getDownloadURL(uploadTask.snapshot.ref)
+          await addDoc(collection(db, 'travels'), {
+            country: travel.country,
+            destination: travel.destination,
+            description: travel.description,
+            image: downloadURL,
+          })
+
+          setImage('')
+          setTravel({
+            ...travel,
+            country: '',
+            destination: '',
+            description: '',
+          })
+
+          setSuccess(true)
+          setTimeout(() => {
+            setSuccess(false)
+          }, 5000)
+        }
+      )
+    } else {
+      await addDoc(collection(db, 'travels'), {
+        country: travel.country,
+        destination: travel.destination,
+        description: travel.description,
+        image: '',
+      })
+
+      setImage('')
+      setTravel({
+        ...travel,
+        country: '',
+        destination: '',
+        description: '',
+      })
+
+      setSuccess(true)
+      setTimeout(() => {
+        setSuccess(false)
+      }, 5000)
+    }
   }
 
   const getTravels = async (): Promise<void> => {
