@@ -67,7 +67,6 @@ const AddTravelScreen = () => {
       xhr.send(null)
     })
 
-    /** @type {any} */
     const metadata = {
       contentType: 'image/jpeg',
     }
