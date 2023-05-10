@@ -42,10 +42,8 @@ const MyTravelsScreen = () => {
     const { country, image } = item.data
     return (
       <View style={styles.container}>
-        <Text>{country}</Text>
-        {image && (
-          <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
-        )}
+        <Text style={styles.text}>{country}</Text>
+        {image && <Image source={{ uri: image }} style={styles.image} />}
       </View>
     )
   }
@@ -67,6 +65,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  text: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    paddingVertical: 10,
+  },
+  image: {
+    width: 300,
+    height: 200,
+    resizeMode: 'cover',
+    borderRadius: 10,
+    marginVertical: 10,
+  },
 })
-
 export default MyTravelsScreen
