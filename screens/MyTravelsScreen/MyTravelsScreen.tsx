@@ -23,10 +23,9 @@ const MyTravelsScreen = () => {
   })
 
   useEffect(() => {
-    const getTravels = async (): Promise<void> => {
-      const travelsCol = collection(db, 'travels')
-      const travelSnapshot = await getDocs(travelsCol)
-      const travelsWithIDs = travelSnapshot.docs.map((doc) => ({
+    const travelsCol = collection(db, 'travels')
+    const unsubScribe = onSnapshot(travelsCol, (snapshot) => {
+      const travelsWithIDs = snapshot.docs.map((doc) => ({
         id: doc.id,
         data: {
           ...doc.data(),
@@ -34,10 +33,10 @@ const MyTravelsScreen = () => {
         },
       }))
       setTravels(travelsWithIDs)
-    }
+    })
 
-    getTravels()
-  }, [travels])
+    return () => unsubScribe()
+  }, [])
 
   const renderTravels = ({ item }: any) => {
     const { country, image } = item.data

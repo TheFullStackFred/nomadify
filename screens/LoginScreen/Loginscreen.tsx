@@ -20,7 +20,7 @@ const LoginScreen = ({ navigation }: Props) => {
         navigation.replace('Root')
       }
     })
-    return unsubscribe
+    return () => unsubscribe()
   }, [])
 
   const onUserInfoChange = (field: keyof Credentials, value: string) => {
