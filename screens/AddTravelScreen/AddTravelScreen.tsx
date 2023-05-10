@@ -152,12 +152,6 @@ const AddTravelScreen = () => {
     }
   }
 
-  const getTravels = async (): Promise<void> => {
-    const travelsCol = collection(db, 'travels')
-    const travelSnapshot = await getDocs(travelsCol)
-    const travelList = travelSnapshot.docs.map((doc) => doc.data())
-  }
-
   return (
     <KeyboardAvoidingView style={formStyles.container} behavior='height'>
       {!success ? (
