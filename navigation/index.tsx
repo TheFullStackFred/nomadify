@@ -6,12 +6,14 @@ import { AntDesign } from '@expo/vector-icons'
 import Loginscreen from '../screens/LoginScreen/Loginscreen'
 import AddTravelScreen from '../screens/AddTravelScreen/AddTravelScreen'
 import MyTravelsScreen from '../screens/MyTravelsScreen/MyTravelsScreen'
+import TravelDetailsScreen from '../screens/TravelDetailsScreen/TravelDetailsScreen'
 
 export type RootStackParamList = {
   Login: undefined
   Root: undefined
   AddTravel: undefined
   MyTravels: undefined
+  TravelDetails: undefined
 }
 
 const Navigation = () => {
@@ -37,6 +39,13 @@ const RootNavigator = () => {
       }}
     >
       <Stack.Screen name='Login' component={Loginscreen} />
+      <Stack.Screen
+        name='TravelDetails'
+        component={TravelDetailsScreen}
+        options={{
+          title: 'Travel Details',
+        }}
+      />
       <Stack.Screen
         name='Root'
         component={BottomTabNavigator}
