@@ -14,6 +14,7 @@ import { Travel } from '../../interfaces/interfaces'
 import LogoutBtn from '../../components/LogoutBtn'
 import ImageUpload from './ImageUpload'
 import TravelInfoForm from './TravelInfoForm'
+import DissmissKeyboard from '../../components/DissmissKeyboard'
 import { formStyles } from '../../styles'
 import Confetti from '../../components/Confetti'
 
@@ -154,29 +155,31 @@ const AddTravelScreen = () => {
   }
 
   return (
-    <KeyboardAvoidingView style={formStyles.container} behavior='height'>
-      {!success ? (
-        <>
-          <TravelInfoForm
-            travel={travel}
-            onTravelInfoChange={onTravelInfoChange}
-          />
-          <ImageUpload pickImage={pickImage} image={image} />
-          <View style={formStyles.buttonContainer}>
-            {travel.country && travel.destination && travel.description && (
-              <TouchableOpacity
-                style={[formStyles.button, formStyles.buttonOutline]}
-                onPress={addTravel}
-              >
-                <Text style={formStyles.buttonOutlineText}>Add travel</Text>
-              </TouchableOpacity>
-            )}
-          </View>
-        </>
-      ) : (
-        <Confetti />
-      )}
-    </KeyboardAvoidingView>
+    <DissmissKeyboard>
+      <KeyboardAvoidingView style={formStyles.container} behavior='height'>
+        {!success ? (
+          <>
+            <TravelInfoForm
+              travel={travel}
+              onTravelInfoChange={onTravelInfoChange}
+            />
+            <ImageUpload pickImage={pickImage} image={image} />
+            <View style={formStyles.buttonContainer}>
+              {travel.country && travel.destination && travel.description && (
+                <TouchableOpacity
+                  style={[formStyles.button, formStyles.buttonOutline]}
+                  onPress={addTravel}
+                >
+                  <Text style={formStyles.buttonOutlineText}>Add travel</Text>
+                </TouchableOpacity>
+              )}
+            </View>
+          </>
+        ) : (
+          <Confetti />
+        )}
+      </KeyboardAvoidingView>
+    </DissmissKeyboard>
   )
 }
 
