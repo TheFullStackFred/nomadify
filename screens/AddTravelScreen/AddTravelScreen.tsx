@@ -156,7 +156,10 @@ const AddTravelScreen = () => {
 
   return (
     <DissmissKeyboard>
-      <KeyboardAvoidingView style={formStyles.container} behavior='height'>
+      <KeyboardAvoidingView
+        style={formStyles.addTravelContainer}
+        behavior='height'
+      >
         {!success ? (
           <>
             <TravelInfoForm

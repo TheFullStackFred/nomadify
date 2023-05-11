@@ -1,7 +1,12 @@
 import { StyleSheet } from 'react-native'
 
 export const formStyles = StyleSheet.create({
-  container: {
+  loginContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#0a0619',
+  },
+  addTravelContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -58,6 +63,11 @@ export const formStyles = StyleSheet.create({
     marginTop: 5,
     height: 200,
     width: 200,
+  },
+  loginImage: {
+    marginTop: 5,
+    height: 400,
+    width: 300,
   },
 })
 
