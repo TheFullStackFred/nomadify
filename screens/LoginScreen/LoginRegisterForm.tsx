@@ -4,6 +4,7 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Image,
 } from 'react-native'
 import DissmissKeyboard from '../../components/DissmissKeyboard'
 import { LinearGradient } from 'expo-linear-gradient'
@@ -25,8 +26,12 @@ const LoginRegisterForm = ({
 }: LoginRegisterFormProps) => {
   return (
     <DissmissKeyboard>
-      <KeyboardAvoidingView style={formStyles.container} behavior='height'>
+      <KeyboardAvoidingView style={formStyles.loginContainer} behavior='height'>
         <View style={formStyles.inputContainer}>
+          <Image
+            source={require('../../assets/splash.png')}
+            style={formStyles.loginImage}
+          />
           <TextInput
             value={credentials.email}
             onChangeText={(text) => onUserInfoChange('email', text)}
