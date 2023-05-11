@@ -13,7 +13,7 @@ const TravelsList = ({ country, destination, image, id }: TravelsListProps) => {
   const navigation = useNavigation()
 
   const navigateToTravelDetails = () => {
-    navigation.navigate('TravelDetails', { id })
+    navigation.navigate('TravelDetails', { country, destination, image, id })
   }
   return (
     <TouchableOpacity onPress={navigateToTravelDetails}>
