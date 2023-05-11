@@ -3,7 +3,10 @@ import { useNavigation } from '@react-navigation/native'
 import { travelsListStyles } from '../../styles'
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../navigation/index'
+import { db, storage } from '../../firebase/firebase-config'
 import { MaterialIcons } from '@expo/vector-icons'
+import { FontAwesome } from '@expo/vector-icons'
+
 interface TravelsListProps {
   id: string
   country: string
@@ -31,6 +34,9 @@ const TravelsList = ({
       description,
     })
   }
+
+  const deleteTravel = (id) => {}
+
   return (
     <TouchableOpacity onPress={navigateToTravelDetails}>
       <View style={travelsListStyles.container}>
@@ -44,6 +50,11 @@ const TravelsList = ({
         <View style={travelsListStyles.textContainer}>
           <Text style={travelsListStyles.country}>{country}</Text>
           <Text style={travelsListStyles.destination}>{destination}</Text>
+        </View>
+        <View>
+          <TouchableOpacity onPress={deleteTravel}>
+            <FontAwesome name='trash-o' size={24} color='#fff' />
+          </TouchableOpacity>
         </View>
       </View>
     </TouchableOpacity>
