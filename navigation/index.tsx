@@ -14,10 +14,11 @@ export type RootStackParamList = {
   AddTravel: undefined
   MyTravels: undefined
   TravelDetails: {
+    id: string
     country: string
     destination: string
+    description: string
     image: string
-    id: string
   }
 }
 
