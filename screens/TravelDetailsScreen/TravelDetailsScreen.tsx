@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, View, Image } from 'react-native'
 import { RouteProp } from '@react-navigation/native'
 import type { RootStackParamList } from '../../navigation'
-import { travelsListStyles } from '../../styles'
+import { travelDetailsStyles } from '../../styles'
 
 interface TravelDetailsParams {
   id: string
@@ -21,15 +21,16 @@ const TravelDetailsScreen = ({ route }: TravelDetailsProps) => {
     route.params as TravelDetailsParams
 
   return (
-    <View style={travelsListStyles.container}>
-      <View style={travelsListStyles.imageContainer}>
+    <View style={travelDetailsStyles.container}>
+      <View style={travelDetailsStyles.imageContainer}>
         {image && (
-          <Image source={{ uri: image }} style={travelsListStyles.image} />
+          <Image source={{ uri: image }} style={travelDetailsStyles.image} />
         )}
       </View>
-      <View style={travelsListStyles.textContainer}>
-        <Text style={travelsListStyles.country}>{country}</Text>
-        <Text style={travelsListStyles.destination}>{destination}</Text>
+      <View>
+        <Text style={travelDetailsStyles.country}>{country}</Text>
+        <Text style={travelDetailsStyles.destination}>{destination}</Text>
+        <Text style={travelDetailsStyles.description}>{description}</Text>
       </View>
     </View>
   )
