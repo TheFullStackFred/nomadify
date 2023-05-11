@@ -35,7 +35,9 @@ const MyTravelsScreen = () => {
   }, [])
 
   const renderTravels = ({ item }: any) => {
-    const { id, country, destination, image, description } = item.data
+    const { country, destination, image, description } = item.data
+    const id = item.id
+
     return (
       <TravelsList
         id={id}

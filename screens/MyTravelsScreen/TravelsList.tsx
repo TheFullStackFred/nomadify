@@ -6,6 +6,7 @@ import { RootStackParamList } from '../../navigation/index'
 import { db, storage } from '../../firebase/firebase-config'
 import { MaterialIcons } from '@expo/vector-icons'
 import { FontAwesome } from '@expo/vector-icons'
+import { deleteDoc, doc } from 'firebase/firestore'
 
 interface TravelsListProps {
   id: string
@@ -35,7 +36,10 @@ const TravelsList = ({
     })
   }
 
-  const deleteTravel = (id) => {}
+  const deleteTravel = (id: string) => {
+    const travelRef = doc(db, 'travels', id)
+    deleteDoc(travelRef)
+  }
 
   return (
     <TouchableOpacity onPress={navigateToTravelDetails}>
@@ -52,7 +56,7 @@ const TravelsList = ({
           <Text style={travelsListStyles.destination}>{destination}</Text>
         </View>
         <View>
-          <TouchableOpacity onPress={deleteTravel}>
+          <TouchableOpacity onPress={() => deleteTravel(id)}>
             <FontAwesome name='trash-o' size={24} color='#fff' />
           </TouchableOpacity>
         </View>
