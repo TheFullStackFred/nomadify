@@ -13,7 +13,12 @@ export type RootStackParamList = {
   Root: undefined
   AddTravel: undefined
   MyTravels: undefined
-  TravelDetails: undefined
+  TravelDetails: {
+    country: string
+    destination: string
+    image: string
+    id: string
+  }
 }
 
 const Navigation = () => {

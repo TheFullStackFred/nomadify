@@ -1,7 +1,8 @@
 import { Text, View, Image, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { travelsListStyles } from '../../styles'
-
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RootStackParamList } from '../../navigation/index'
 interface TravelsListProps {
   country: string
   destination: string
@@ -10,7 +11,8 @@ interface TravelsListProps {
 }
 
 const TravelsList = ({ country, destination, image, id }: TravelsListProps) => {
-  const navigation = useNavigation()
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>()
 
   const navigateToTravelDetails = () => {
     navigation.navigate('TravelDetails', { country, destination, image, id })
