@@ -1,7 +1,11 @@
 import { TouchableWithoutFeedback, Keyboard } from 'react-native'
 
-const DissmissKeyboard = ({ children }: any) => {
-  const dissmissKeyboard = () => {
+interface DissmissKeyboardProps {
+  children: React.ReactNode
+}
+
+const DissmissKeyboard = ({ children }: DissmissKeyboardProps) => {
+  const dissmissKeyboard = (): void => {
     Keyboard.dismiss()
   }
   return (
