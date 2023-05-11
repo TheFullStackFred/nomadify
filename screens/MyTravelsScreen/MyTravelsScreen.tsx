@@ -1,15 +1,11 @@
 import { useLayoutEffect, useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { FlatList, View, Text, Image, StyleSheet } from 'react-native'
-import {
-  DocumentData,
-  collection,
-  getDocs,
-  onSnapshot,
-} from 'firebase/firestore'
+import { FlatList } from 'react-native'
+import { DocumentData, collection, onSnapshot } from 'firebase/firestore'
 import { db } from '../../firebase/firebase-config'
 import { defaultStyles } from '../../styles'
 import LogoutBtn from '../../components/LogoutBtn'
+import TravelsList from './TravelsList'
 
 const MyTravelsScreen = () => {
   const [travels, setTravels] = useState<Array<DocumentData>>([])
@@ -39,12 +35,9 @@ const MyTravelsScreen = () => {
   }, [])
 
   const renderTravels = ({ item }: any) => {
-    const { country, image } = item.data
+    const { country, destination, image } = item.data
     return (
-      <View style={styles.container}>
-        <Text style={styles.text}>{country}</Text>
-        {image && <Image source={{ uri: image }} style={styles.image} />}
-      </View>
+      <TravelsList country={country} destination={destination} image={image} />
     )
   }
 
@@ -58,24 +51,4 @@ const MyTravelsScreen = () => {
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    paddingVertical: 10,
-  },
-  image: {
-    width: 300,
-    height: 200,
-    resizeMode: 'cover',
-    borderRadius: 10,
-    marginVertical: 10,
-  },
-})
 export default MyTravelsScreen
