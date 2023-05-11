@@ -63,7 +63,7 @@ const AddTravelScreen = () => {
         xhr.onload = function () {
           resolve(xhr.response)
         }
-        xhr.onerror = function () {
+        xhr.onerror = () => {
           reject(new TypeError('Network request failed'))
         }
         xhr.responseType = 'blob'
