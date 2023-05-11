@@ -1,5 +1,6 @@
 import React from 'react'
 import { Text, View, Image } from 'react-native'
+import { MaterialIcons } from '@expo/vector-icons'
 import { RouteProp } from '@react-navigation/native'
 import type { RootStackParamList } from '../../navigation'
 import { travelDetailsStyles } from '../../styles'
@@ -22,11 +23,13 @@ const TravelDetailsScreen = ({ route }: TravelDetailsProps) => {
 
   return (
     <View style={travelDetailsStyles.container}>
-      <View style={travelDetailsStyles.imageContainer}>
-        {image && (
+      {image ? (
+        <View style={travelDetailsStyles.imageContainer}>
           <Image source={{ uri: image }} style={travelDetailsStyles.image} />
-        )}
-      </View>
+        </View>
+      ) : (
+        <MaterialIcons name='image-not-supported' color='#fff' size={350} />
+      )}
       <View>
         <Text style={travelDetailsStyles.country}>{country}</Text>
         <Text style={travelDetailsStyles.destination}>{destination}</Text>
