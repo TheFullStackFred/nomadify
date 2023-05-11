@@ -3,7 +3,6 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from 'firebase/auth'
-import { Image, View, StyleSheet } from 'react-native'
 import { auth } from '../../firebase/firebase-config'
 import { Credentials } from '../../interfaces/interfaces'
 import { NativeStackScreenProps } from '@react-navigation/native-stack'

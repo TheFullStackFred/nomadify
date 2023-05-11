@@ -1,19 +1,34 @@
 import { Text, View, Image, TouchableOpacity } from 'react-native'
 import { useNavigation } from '@react-navigation/native'
 import { travelsListStyles } from '../../styles'
-
+import type { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RootStackParamList } from '../../navigation/index'
 interface TravelsListProps {
+  id: string
   country: string
   destination: string
+  description: string
   image: string
-  id: string
 }
 
-const TravelsList = ({ country, destination, image, id }: TravelsListProps) => {
-  const navigation = useNavigation()
+const TravelsList = ({
+  id,
+  country,
+  destination,
+  description,
+  image,
+}: TravelsListProps) => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>()
 
   const navigateToTravelDetails = () => {
-    navigation.navigate('TravelDetails', { id })
+    navigation.navigate('TravelDetails', {
+      country,
+      destination,
+      image,
+      id,
+      description,
+    })
   }
   return (
     <TouchableOpacity onPress={navigateToTravelDetails}>

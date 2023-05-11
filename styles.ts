@@ -125,3 +125,36 @@ export const travelsListStyles = StyleSheet.create({
     color: '#fff',
   },
 })
+
+export const travelDetailsStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 10,
+    backgroundColor: '#0a0619',
+  },
+  imageContainer: {
+    height: 300,
+    marginBottom: 16,
+    overflow: 'hidden',
+  },
+  image: {
+    flex: 1,
+    borderRadius: 5,
+  },
+  country: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 8,
+    color: '#fff',
+  },
+  destination: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 8,
+    color: '#fff',
+  },
+  description: {
+    fontSize: 18,
+    color: '#fff',
+  },
+})

@@ -1,26 +1,36 @@
 import React from 'react'
 import { Text, View, Image } from 'react-native'
-import { RouteProp, useRoute } from '@react-navigation/native'
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RouteProp } from '@react-navigation/native'
 import type { RootStackParamList } from '../../navigation'
+import { travelDetailsStyles } from '../../styles'
 
-import { travelsListStyles } from '../../styles'
+interface TravelDetailsParams {
+  id: string
+  country: string
+  destination: string
+  description: string
+  image: string
+}
 
-const TravelDetailsScreen = () => {
-  const route = useRoute()
+interface TravelDetailsProps {
+  route: RouteProp<RootStackParamList, 'TravelDetails'>
+}
 
-  const { country, destination, image } = route.params
+const TravelDetailsScreen = ({ route }: TravelDetailsProps) => {
+  const { country, destination, image, id, description } =
+    route.params as TravelDetailsParams
 
   return (
-    <View style={travelsListStyles.container}>
-      <View style={travelsListStyles.imageContainer}>
+    <View style={travelDetailsStyles.container}>
+      <View style={travelDetailsStyles.imageContainer}>
         {image && (
-          <Image source={{ uri: image }} style={travelsListStyles.image} />
+          <Image source={{ uri: image }} style={travelDetailsStyles.image} />
         )}
       </View>
-      <View style={travelsListStyles.textContainer}>
-        <Text style={travelsListStyles.country}>{country}</Text>
-        <Text style={travelsListStyles.destination}>{destination}</Text>
+      <View>
+        <Text style={travelDetailsStyles.country}>{country}</Text>
+        <Text style={travelDetailsStyles.destination}>{destination}</Text>
+        <Text style={travelDetailsStyles.description}>{description}</Text>
       </View>
     </View>
   )
