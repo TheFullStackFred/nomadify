@@ -63,11 +63,11 @@ export const formStyles = StyleSheet.create({
     marginTop: 5,
     height: 200,
     width: 200,
+    borderRadius: 5,
   },
   loginImage: {
-    marginTop: 5,
-    height: 400,
-    width: 300,
+    height: 300,
+    width: '100%',
   },
 })
 
@@ -89,5 +89,39 @@ export const confettiStyles = StyleSheet.create({
     color: '#fc67fa',
     fontSize: 40,
     fontWeight: 'bold',
+  },
+})
+
+export const travelsListStyles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
+    padding: 10,
+    marginTop: 10,
+  },
+  imageContainer: {
+    marginRight: 10,
+  },
+  image: {
+    width: 100,
+    height: 100,
+    borderRadius: 5,
+  },
+  textContainer: {
+    marginLeft: 20,
+    flex: 1,
+  },
+  country: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 5,
+    color: '#fff',
+  },
+  destination: {
+    fontSize: 16,
+    color: '#fff',
   },
 })
