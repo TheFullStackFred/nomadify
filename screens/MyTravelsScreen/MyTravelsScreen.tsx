@@ -35,7 +35,7 @@ const MyTravelsScreen = () => {
     return () => unsubScribe()
   }, [])
 
-  const renderTravels = ({ item }: any) => {
+  const renderTravels = ({ item }: { item: DocumentData }) => {
     const { country, destination, image, description } = item.data
     const id = item.id
 
