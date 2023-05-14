@@ -1,11 +1,12 @@
 import { useLayoutEffect, useEffect, useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
-import { FlatList } from 'react-native'
+import { FlatList, Text } from 'react-native'
 import { DocumentData, collection, onSnapshot } from 'firebase/firestore'
 import { db } from '../../firebase/firebase-config'
 import { defaultStyles } from '../../styles'
 import LogoutBtn from '../../components/LogoutBtn'
 import TravelsList from './TravelsList'
+import GifScreen from '../../components/GifScreen'
 
 const MyTravelsScreen = () => {
   const [travels, setTravels] = useState<Array<DocumentData>>([])
@@ -50,12 +51,18 @@ const MyTravelsScreen = () => {
   }
 
   return (
-    <FlatList
-      style={defaultStyles.container}
-      data={travels}
-      renderItem={renderTravels}
-      keyExtractor={(item) => item.id}
-    />
+    <>
+      {travels.length === 0 ? (
+        <GifScreen />
+      ) : (
+        <FlatList
+          style={defaultStyles.container}
+          data={travels}
+          renderItem={renderTravels}
+          keyExtractor={(item) => item.id}
+        />
+      )}
+    </>
   )
 }
 

@@ -158,3 +158,23 @@ export const travelDetailsStyles = StyleSheet.create({
     color: '#fff',
   },
 })
+
+export const gifStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#0a0619',
+  },
+  gif: {
+    width: '100%',
+    height: '90%',
+    borderRadius: 5,
+    marginBottom: 10,
+  },
+  text: {
+    color: '#fff',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+})

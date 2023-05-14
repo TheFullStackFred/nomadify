@@ -18,7 +18,7 @@ interface TravelDetailsProps {
 }
 
 const TravelDetailsScreen = ({ route }: TravelDetailsProps) => {
-  const { country, destination, image, id, description } =
+  const { country, destination, image, description } =
     route.params as TravelDetailsParams
 
   return (
