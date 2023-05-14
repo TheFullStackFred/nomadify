@@ -10,6 +10,7 @@ import GifScreen from '../../components/GifScreen'
 
 const MyTravelsScreen = () => {
   const [travels, setTravels] = useState<Array<DocumentData>>([])
+  const [showGif, setShowGif] = useState(false)
 
   const navigation = useNavigation()
 
@@ -35,6 +36,17 @@ const MyTravelsScreen = () => {
     return () => unsubScribe()
   }, [])
 
+  useEffect(() => {
+    if (travels.length === 0) {
+      const timeout = setTimeout(() => {
+        setShowGif(true)
+      }, 1000)
+      return () => clearTimeout(timeout)
+    } else {
+      setShowGif(false)
+    }
+  }, [travels])
+
   const renderTravels = ({ item }: { item: DocumentData }) => {
     const { country, destination, image, description } = item.data
     const id = item.id
@@ -52,7 +64,7 @@ const MyTravelsScreen = () => {
 
   return (
     <>
-      {travels.length === 0 ? (
+      {showGif ? (
         <GifScreen />
       ) : (
         <FlatList
