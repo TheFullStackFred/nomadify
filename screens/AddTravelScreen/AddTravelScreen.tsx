@@ -56,101 +56,107 @@ const AddTravelScreen = () => {
   }
 
   const addTravel = async (): Promise<void> => {
-    let downloadURL = ''
-    if (image) {
-      const blobImage = await new Promise((resolve, reject) => {
-        const xhr = new XMLHttpRequest()
-        xhr.onload = function () {
-          resolve(xhr.response)
-        }
-        xhr.onerror = () => {
-          reject(new TypeError('Network request failed'))
-        }
-        xhr.responseType = 'blob'
-        xhr.open('GET', image, true)
-        xhr.send(null)
-      })
+    try {
+      let downloadURL = ''
+      if (image) {
+        const blobImage = await new Promise((resolve, reject) => {
+          const xhr = new XMLHttpRequest()
+          xhr.onload = function () {
+            resolve(xhr.response)
+          }
+          xhr.onerror = () => {
+            reject(new TypeError('Network request failed'))
+          }
+          xhr.responseType = 'blob'
+          xhr.open('GET', image, true)
+          xhr.send(null)
+        })
 
-      const metadata = {
-        contentType: 'image/jpeg',
+        const metadata = {
+          contentType: 'image/jpeg',
+        }
+
+        const storageRef = ref(storage, 'images/' + Date.now())
+        const uploadTask = uploadBytesResumable(
+          storageRef,
+          blobImage as Blob,
+          metadata
+        )
+
+        uploadTask.on(
+          'state_changed',
+          (snapshot) => {
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            console.log('Upload is ' + progress + '% done')
+            switch (snapshot.state) {
+              case 'paused':
+                console.log('Upload is paused')
+                break
+              case 'running':
+                console.log('Upload is running')
+                break
+            }
+          },
+          (error) => {
+            switch (error.code) {
+              case 'storage/unauthorized':
+                break
+              case 'storage/canceled':
+                break
+
+              case 'storage/unknown':
+                break
+            }
+          },
+          async () => {
+            downloadURL = await getDownloadURL(uploadTask.snapshot.ref)
+            await addDoc(collection(db, 'travels'), {
+              country: travel.country,
+              destination: travel.destination,
+              description: travel.description,
+              image: downloadURL,
+            })
+
+            setImage('')
+            setTravel({
+              ...travel,
+              country: '',
+              destination: '',
+              description: '',
+            })
+
+            setSuccess(true)
+            setTimeout(() => {
+              setSuccess(false)
+            }, 5000)
+          }
+        )
+      } else {
+        await addDoc(collection(db, 'travels'), {
+          country: travel.country,
+          destination: travel.destination,
+          description: travel.description,
+          image: '',
+        })
+
+        setImage('')
+        setTravel({
+          ...travel,
+          country: '',
+          destination: '',
+          description: '',
+        })
+
+        setSuccess(true)
+        setTimeout(() => {
+          setSuccess(false)
+        }, 5000)
       }
-
-      const storageRef = ref(storage, 'images/' + Date.now())
-      const uploadTask = uploadBytesResumable(
-        storageRef,
-        blobImage as Blob,
-        metadata
-      )
-
-      uploadTask.on(
-        'state_changed',
-        (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-          console.log('Upload is ' + progress + '% done')
-          switch (snapshot.state) {
-            case 'paused':
-              console.log('Upload is paused')
-              break
-            case 'running':
-              console.log('Upload is running')
-              break
-          }
-        },
-        (error) => {
-          switch (error.code) {
-            case 'storage/unauthorized':
-              break
-            case 'storage/canceled':
-              break
-
-            case 'storage/unknown':
-              break
-          }
-        },
-        async () => {
-          downloadURL = await getDownloadURL(uploadTask.snapshot.ref)
-          await addDoc(collection(db, 'travels'), {
-            country: travel.country,
-            destination: travel.destination,
-            description: travel.description,
-            image: downloadURL,
-          })
-
-          setImage('')
-          setTravel({
-            ...travel,
-            country: '',
-            destination: '',
-            description: '',
-          })
-
-          setSuccess(true)
-          setTimeout(() => {
-            setSuccess(false)
-          }, 5000)
-        }
-      )
-    } else {
-      await addDoc(collection(db, 'travels'), {
-        country: travel.country,
-        destination: travel.destination,
-        description: travel.description,
-        image: '',
-      })
-
-      setImage('')
-      setTravel({
-        ...travel,
-        country: '',
-        destination: '',
-        description: '',
-      })
-
-      setSuccess(true)
-      setTimeout(() => {
-        setSuccess(false)
-      }, 5000)
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        alert(error.message)
+      }
     }
   }
 

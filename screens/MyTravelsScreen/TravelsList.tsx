@@ -3,10 +3,11 @@ import { useNavigation } from '@react-navigation/native'
 import { travelsListStyles } from '../../styles'
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../navigation/index'
-import { db } from '../../firebase/firebase-config'
+import { db, storage } from '../../firebase/firebase-config'
 import { MaterialIcons } from '@expo/vector-icons'
 import { FontAwesome } from '@expo/vector-icons'
 import { deleteDoc, doc } from 'firebase/firestore'
+import { ref, deleteObject } from 'firebase/storage'
 
 interface TravelsListProps {
   id: string
@@ -36,9 +37,24 @@ const TravelsList = ({
     })
   }
 
-  const deleteTravel = (id: string) => {
-    const travelRef = doc(db, 'travels', id)
-    deleteDoc(travelRef)
+  const deleteTravel = async (id: string, imageUrl: string): Promise<void> => {
+    try {
+      const travelRef = doc(db, 'travels', id)
+      await deleteDoc(travelRef)
+
+      if (imageUrl) {
+        const imageRef = ref(storage, imageUrl)
+        await deleteObject(imageRef)
+        console.log(`Travel document with ID ${id} deleted`)
+        console.log(`Image at URL ${imageUrl} deleted`)
+      } else {
+        console.log(`Travel document with ID ${id} deleted`)
+      }
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        alert(error.message)
+      }
+    }
   }
 
   return (
@@ -56,7 +72,7 @@ const TravelsList = ({
           <Text style={travelsListStyles.destination}>{destination}</Text>
         </View>
         <View>
-          <TouchableOpacity onPress={() => deleteTravel(id)}>
+          <TouchableOpacity onPress={() => deleteTravel(id, image)}>
             <FontAwesome name='trash-o' size={24} color='#fff' />
           </TouchableOpacity>
         </View>
