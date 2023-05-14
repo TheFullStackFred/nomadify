@@ -15,11 +15,13 @@ import LogoutBtn from '../../components/LogoutBtn'
 import ImageUpload from './ImageUpload'
 import TravelInfoForm from './TravelInfoForm'
 import DissmissKeyboard from '../../components/DissmissKeyboard'
-import { formStyles } from '../../styles'
 import Confetti from '../../components/Confetti'
+import LoadingSpinner from '../../components/LoadingSpinner'
+import { formStyles } from '../../styles'
 
 const AddTravelScreen = () => {
   const [image, setImage] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [travel, setTravel] = useState<Travel>({
     country: '',
@@ -56,6 +58,7 @@ const AddTravelScreen = () => {
   }
 
   const addTravel = async (): Promise<void> => {
+    setIsLoading(true)
     try {
       let downloadURL = ''
       if (image) {
@@ -126,6 +129,7 @@ const AddTravelScreen = () => {
               description: '',
             })
 
+            setIsLoading(false)
             setSuccess(true)
             setTimeout(() => {
               setSuccess(false)
@@ -148,6 +152,7 @@ const AddTravelScreen = () => {
           description: '',
         })
 
+        setIsLoading(false)
         setSuccess(true)
         setTimeout(() => {
           setSuccess(false)
@@ -166,7 +171,11 @@ const AddTravelScreen = () => {
         style={formStyles.addTravelContainer}
         behavior='height'
       >
-        {!success ? (
+        {isLoading ? (
+          <LoadingSpinner />
+        ) : success ? (
+          <Confetti />
+        ) : (
           <>
             <TravelInfoForm
               travel={travel}
@@ -184,8 +193,6 @@ const AddTravelScreen = () => {
               )}
             </View>
           </>
-        ) : (
-          <Confetti />
         )}
       </KeyboardAvoidingView>
     </DissmissKeyboard>
