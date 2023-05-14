@@ -8,7 +8,7 @@ const GifScreen = () => {
       <Image
         style={gifStyles.gif}
         source={{
-          uri: 'https://media.giphy.com/media/zV3BR9exoyuHrB40ZC/giphy.gif',
+          uri: 'https://media.giphy.com/media/mDSGaOdQxzdseSPdAi/giphy.gif',
         }}
       />
       <Text style={gifStyles.text}>Go travel now😎🏝️</Text>
