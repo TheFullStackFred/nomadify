@@ -8,7 +8,7 @@ export const App = () => {
   const [appIsReady, setAppIsReady] = useState(false)
 
   useEffect(() => {
-    async function prepare() {
+    const prepare = async () => {
       try {
         SplashScreen.preventAutoHideAsync()
         await new Promise((resolve) => setTimeout(resolve, 3000))
